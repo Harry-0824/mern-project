@@ -16,7 +16,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
       if (currentUser.user.role === "instructor") {
         CourseService.get(_id)
           .then((data) => {
-            setCourseData(data.data);
+            setCourseData(Array.isArray(data.data) ? data.data : []);
           })
           .catch((e) => {
             console.log(e);
@@ -25,7 +25,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
         CourseService.getEnrolledCourses(_id)
           .then((data) => {
             console.log(data);
-            setCourseData(data.data);
+            setCourseData(Array.isArray(data.data) ? data.data : []);
           })
           .catch((e) => {
             console.log(e);
@@ -71,7 +71,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
           <h1>歡迎來到學生的課程頁面</h1>
         </div>
       )}
-      {currentUser && courseData && courseData.length !== 0 && (
+      {currentUser && Array.isArray(courseData) && courseData.length > 0 && (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {courseData.map((course) => {
             return (
