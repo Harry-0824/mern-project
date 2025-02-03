@@ -1,7 +1,8 @@
 import axios from "axios";
-const API_URL = "https://mern-project-73375b7b705a.herokuapp.com//api/courses";
+const API_URL = "https://mern-project-73375b7b705a.herokuapp.com/api/courses";
 
 class CourseService {
+  //取得所有課程
   post(title, description, price) {
     let token;
     if (localStorage.getItem("user")) {
@@ -65,7 +66,7 @@ class CourseService {
       },
     });
   }
-
+  //註冊課程
   enroll(_id) {
     let token;
     if (localStorage.getItem("user")) {
