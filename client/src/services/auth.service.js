@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const API_URL = "https://mern-project-73375b7b705a.herokuapp.com/api/user";
 
 class AuthService {

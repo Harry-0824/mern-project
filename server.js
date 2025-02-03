@@ -14,7 +14,7 @@ const port = process.env.PORT || 8080; //heroku會自動分配port
 
 //連接mongoDB
 mongoose
-  .connect(process.env.MONGODB_CONNENTION)
+  .connect(process.env.MONGODB_CONNECTION)
   .then(() => {
     console.log("連接到mongoDB..");
   })
