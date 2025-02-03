@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/user";
+const API_URL = "https://mern-project-73375b7b705a.herokuapp.com/api/user";
 
 class AuthService {
   //登入功能
