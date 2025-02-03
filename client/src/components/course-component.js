@@ -35,7 +35,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
   }, [currentUser]);
   const handleDelete = () => {
     if (window.confirm("確定要刪除此課程嗎？")) {
-      CourseService.delete(courseData[0]._id)
+      CourseService.delete(courseData._id)
         .then((data) => {
           console.log(data);
           window.alert("課程已刪除");
