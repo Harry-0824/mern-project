@@ -75,7 +75,11 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {courseData.map((course) => {
             return (
-              <div className="card" style={{ width: "18rem", margin: "1rem" }}>
+              <div
+                key={course.id}
+                className="card"
+                style={{ width: "18rem", margin: "1rem" }}
+              >
                 <div className="card-body">
                   <h5 className="card-title">課程名稱:{course.title}</h5>
                   <p style={{ margin: "0.5rem 0rem" }} className="card-text">
@@ -89,7 +93,9 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
                   </p>
                   <button
                     className="btn btn-primary btn-lg"
-                    onClick={handleDelete}
+                    onClick={() => {
+                      handleDelete(course._id);
+                    }}
                   >
                     刪除課程
                   </button>
