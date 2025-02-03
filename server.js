@@ -9,10 +9,12 @@ const passport = require("passport");
 const { route } = require("./routes/auth");
 require("./config/passport")(passport);
 const cors = require("cors");
+const path = require("path");
+const port = process.env.PORT || 8080; //heroku會自動分配port
 
 //連接mongoDB
 mongoose
-  .connect("mongodb://localhost:27017/mernDB")
+  .connect(process.env.MONGODB_CONNENTION)
   .then(() => {
     console.log("連接到mongoDB..");
   })
@@ -24,6 +26,7 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use("/api/user", authRoute);
 //courseRoute應被jwt保護
@@ -34,9 +37,17 @@ app.use(
   courseRoute
 );
 
-//只有登入系統的人才能去新增課程或註冊課程
+//production環境
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //React使用3000
-app.listen(8080, () => {
+app.listen(port, () => {
   console.log("後端伺服器已啟動於port 8080");
 });
