@@ -8,7 +8,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
     navigate("/login");
   };
 
-  const [courseData, setCourseData] = useState(null);
+  const [courseData, setCourseData] = useState([]);
   useEffect(() => {
     let _id;
     if (currentUser) {
