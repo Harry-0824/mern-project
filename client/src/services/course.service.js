@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "https://mern-project-73375b7b705a.herokuapp.com/api/courses";
+const API_URL = "https://mern-project-73375b7b705a.herokuapp.com//api/courses";
 
 class CourseService {
   post(title, description, price) {
@@ -82,6 +82,29 @@ class CourseService {
         },
       }
     );
+  }
+  //刪除課程
+  delete(_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+    return axios
+      .delete(API_URL + "/" + _id, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((response) => {
+        //刪除成功後刷新頁面
+        window.location.reload();
+        return response;
+      })
+      .catch((e) => {
+        console.log("課程刪除失敗" + e);
+      });
   }
 }
 

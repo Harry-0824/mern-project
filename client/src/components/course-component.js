@@ -7,6 +7,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
   const handleTakeTOlogin = () => {
     navigate("/login");
   };
+
   const [courseData, setCourseData] = useState(null);
   useEffect(() => {
     let _id;
@@ -21,7 +22,6 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
             console.log(e);
           });
       } else if (currentUser.user.role === "student") {
-        console.log("student");
         CourseService.getEnrolledCourses(_id)
           .then((data) => {
             console.log(data);
@@ -32,7 +32,22 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
           });
       }
     }
-  }, []);
+  }, [currentUser]);
+  const handleDelete = () => {
+    if (window.confirm("確定要刪除此課程嗎？")) {
+      CourseService.delete(courseData[0]._id)
+        .then((data) => {
+          console.log(data);
+          window.alert("課程已刪除");
+          navigate("/course");
+        })
+        .catch((e) => {
+          console.log(e);
+          window.alert("刪除失敗");
+        });
+    }
+  };
+
   return (
     <div style={{ padding: "3rem" }}>
       {!currentUser && (
@@ -56,7 +71,7 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
           <h1>歡迎來到學生的課程頁面</h1>
         </div>
       )}
-      {currentUser && courseData && courseData.length != 0 && (
+      {currentUser && courseData && courseData.length !== 0 && (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {courseData.map((course) => {
             return (
@@ -72,6 +87,12 @@ const Coursecomponent = ({ currentUser, setCurrentUser }) => {
                   <p style={{ margin: "0.5rem 0rem" }}>
                     課程價格:{course.price}
                   </p>
+                  <button
+                    className="btn btn-primary btn-lg"
+                    onClick={handleDelete}
+                  >
+                    刪除課程
+                  </button>
                 </div>
               </div>
             );

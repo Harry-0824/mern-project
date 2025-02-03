@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CourseService from "../services/course.service";
-import axios from "axios";
-const API_URL = "http://localhost:8080/api/courses";
 
 const PostCourseComponent = (props) => {
   let { currentUser, setCurrentUser } = props;
